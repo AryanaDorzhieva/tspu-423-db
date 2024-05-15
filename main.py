@@ -1,6 +1,28 @@
 import sqlite3
 
-# Создаем подключение к базе данных (файл my_database.db будет создан)
+# Устанавливаем соединение с базой данных
 connection = sqlite3.connect('my_database.db')
+cursor = connection.cursor()
 
+# Создаем таблицу Users
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Users (
+id - INT(11) * AUTO_INCREMENT
+Фамилия - VARCHAR(60) *
+Имя - VARCHAR(30) *
+Отчество - VARCHAR(30)
+Дата рождения - DATE *
+Email - VARCHAR(50) *
+Телефон - CHAR(20)
+Форма обучения - ENUM("очная", "заочная", "очно-заочная") *
+Статус - TINYINT(1) * DEFAULT = 1
+Пароль - VARCHAR(32) *
+ID_факультета - INT(11) *
+ID_группы - INT(11) *
+
+)
+''')
+
+# Сохраняем изменения и закрываем соединение
+connection.commit()
 connection.close()
