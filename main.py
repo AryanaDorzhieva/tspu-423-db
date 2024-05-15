@@ -23,6 +23,25 @@ ID_группы - INT(11) *
 )
 ''')
 
+# Создаем таблицу Faculties
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Faculty (
+id - INT(11) * AUTO_INCREMENT
+Название - VARCHAR(100) *
+
+
+)
+''')
+
+# Создаем таблицу Groups
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Groups (
+id - INT(11) * AUTO_INCREMENT
+Название - VARCHAR(100) *
+ID_факультета - INT(11) *
+
+)
+''')
 # Сохраняем изменения и закрываем соединение
 connection.commit()
 connection.close()
