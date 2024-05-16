@@ -1,47 +1,38 @@
 import sqlite3
 
-# Устанавливаем соединение с базой данных
 connection = sqlite3.connect('my_database.db')
 cursor = connection.cursor()
 
-# Создаем таблицу Users
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS Users (
-id INT(11) NOT NULL AUTO_INCREMENT
-Фамилия VARCHAR(60) NOT NULL
-Имя VARCHAR(30) NOT NULL
-Отчество VARCHAR(30)
-Дата рождения DATE NOT NULL
-Email VARCHAR(50) NOT NULL
-Телефон CHAR(20)
-Форма обучения ENUM("очная", "заочная", "очно-заочная") NOT NULL
-Статус TINYINT(1) NOT NULL DEFAULT = 1
-Пароль VARCHAR(32) NOT NULL
-ID_факультета INT(11) NOT NULL
-ID_группы INT(11) NOT NULL
+    CREATE TABLE IF NOT EXISTS faculties (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name VARCHAR(100) NOT NULL                       
+    )''')
 
-)
-''')
 
-# Создаем таблицу Faculties
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS Faculty (
-id INT(11) NOT NULL AUTO_INCREMENT
-Название VARCHAR(100) NOT NULL
+    CREATE TABLE IF NOT EXISTS groups (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name VARCHAR(100) NOT NULL,
+        faculty_id INTEGER(11) NOT NULL,
+        FOREIGN KEY (faculty_id) REFERENCES faculties(id)                                  
+    )''')
 
 
-)
-''')
-
-# Создаем таблицу Groups
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS Groups (
-id INT(11) NOT NULL AUTO_INCREMENT
-Название VARCHAR(100) NOT NULL
-ID_факультета INT(11) NOT NULL
-
-)
-''')
-# Сохраняем изменения и закрываем соединение
+    CREATE TABLE IF NOT EXISTS users (
+        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        last_name VARCHAR(60) NOT NULL,
+        first_name VARCHAR(30) NOT NULL,
+        fathers_name VARCHAR(30),
+        birth_date DATE NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        phone_number CHAR(20),
+        form_of_education VARCHAR(15) CHECK(form_of_education in ("очная", "заочная", "очно-заочная")) NOT NULL,
+        status TINYINT(1) DEFAULT 1 NOT NULL,
+        password VARCHAR(32) NOT NULL,
+        group_id INTEGER(11) NOT NULL,
+        FOREIGN KEY (group_id) REFERENCES groups(id)
+    )''')
 connection.commit()
 connection.close()
