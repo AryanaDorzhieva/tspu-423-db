@@ -21,7 +21,7 @@ cursor.execute('''
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
-        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         last_name VARCHAR(60) NOT NULL,
         first_name VARCHAR(30) NOT NULL,
         fathers_name VARCHAR(30),
