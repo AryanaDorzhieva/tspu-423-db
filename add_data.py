@@ -30,37 +30,27 @@ def get_faculty_by_name(name):
     ''')
     
     return cursor.fetchall()
-    
+
+def add_groups():
+    cursor.execute('''
+        INSERT INTO fgroups (name) VALUES 
+            ("423"),
+            ("413"), 
+            ("403")
+        
+        ''')
+
+def add_users():
+    cursor.execute('''
+        INSERT INTO users (name) VALUES 
+            ("maria"),
+            ("ivan"), 
+            ("roman")
+        
+        ''')
 
 faculty = get_faculty_by_name('ФМФ')
 
-
-groups = [
-     {
-         'group_name': '423',
-         'faculty_name': 'ФМФ',
-     },
-     {
-         'group_name': '413',
-         'faculty_name': 'ФМФ',
-     },
-     {
-         'group_name': '403',
-         'faculty_name': 'ФМФ',
-     },
-
-]
-
-
-def add_groups():
-    for item in groups:
-        faculty = get_faculty_by_name(item.get('faculty_name'))
-        if not faculty:
-            continue
-        
-        faculty = faculty[0]
-
-        add_group(item.get('group_name'), faculty[0])
 
 if faculty:
     faculty = faculty[0]
